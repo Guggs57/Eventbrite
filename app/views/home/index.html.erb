@@ -1,2 +1,40 @@
-<h1>Bienvenue sur la page d'accueil 🏠</h1>
-<p>Tout roule, t'es bien là !</p>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Bienvenue sur Eventbrite THP</title>
+  <!-- Lien vers le fichier CSS externe -->
+ <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+</head>
+<body>
+<nav class="navbar">
+<div class="navbar-container">
+  <a href="/" class="logo">Eventbrite THP</a>
+  <ul class="nav-links">
+    <li><a href="/">Accueil</a></li>
+    <li><a href="/events">Événements</a></li>
+    <li><a href="/about">À propos</a></li>
+    <li><a href="/contact">Contact</a></li>
+  </ul>
+
+  <!-- Recherche combinée -->
+  <div class="search-container">
+    <input type="text" class="search-bar" id="event-search" placeholder="Rechercher un événement...">
+    <input type="text" class="search-bar" id="city-search" placeholder="Dans quelle ville ?" />
+  </div>
+
+  <div class="hamburger" id="hamburger">
+    <span class="bar"></span>
+    <span class="bar"></span>
+    <span class="bar"></span>
+  </div>
+</div>
+</nav>
+
+  <h1>Bienvenue sur Eventbrite by THP 🎉</h1>
+  <p>Organise ou découvre des événements autour de toi. Connecte-toi, explore, participe et fais de belles rencontres !</p>
+
+  <footer>
+    Made with ❤️ by Nicolas - The Hacking Project
+  </footer>
+</body>
+</html>
