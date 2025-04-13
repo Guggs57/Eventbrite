@@ -27,17 +27,21 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_13_130254) do
     t.text "description"
     t.integer "price"
     t.string "location"
+    t.bigint "creator_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["creator_id"], name: "index_events_on_creator_id"
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "email"
-    t.string "encrypted_password"
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
     t.text "description"
     t.string "first_name"
     t.string "last_name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  add_foreign_key "events", "users", column: "creator_id"
 end
