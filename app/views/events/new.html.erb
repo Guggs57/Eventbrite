@@ -1,0 +1,47 @@
+<h1 class="text-center my-5">Créer un événement</h1>
+
+<%= form_with model: @event, local: true, class: "form-container" do |form| %>
+  <% if @event.errors.any? %>
+    <div class="flash-error mb-4">
+      <ul>
+        <% @event.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="mb-3">
+    <%= form.label :title, "Titre", class: "form-label" %>
+    <%= form.text_field :title, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :description, "Description", class: "form-label" %>
+    <%= form.text_area :description, class: "form-control", rows: 4 %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :date, "Date et Heure", class: "form-label" %>
+    <%= form.text_field :date, class: "form-control", type: "datetime-local" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :location, "Lieu", class: "form-label" %>
+    <%= form.text_field :location, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :price, "Prix", class: "form-label" %>
+    <%= form.number_field :price, class: "form-control" %>
+  </div>
+
+  <div class="d-flex justify-content-between">
+    <div>
+      <%= form.submit "Créer l'événement", class: "btn btn-success" %>
+    </div>
+    <div>
+      <%= link_to 'Retour', events_path, class: 'btn btn-danger' %>
+    </div>
+  </div>
+<% end %>

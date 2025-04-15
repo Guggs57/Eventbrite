@@ -1,28 +1,93 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title><%= content_for(:title) || "Eventbrite" %></title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="mobile-web-app-capable" content="yes">
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
+<html lang="fr">
 
-    <%= yield :head %>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <title><%= content_for(:title) || "Eventbrite" %></title>
+  <%= javascript_include_tag "application", "data-turbo-track": "reload" %>
 
-    <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
-    <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+  
+  <!-- CDN Bootstrap -->
+  <%= stylesheet_link_tag "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css", crossorigin: "anonymous" %>
+  <%= javascript_include_tag "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js", crossorigin: "anonymous" %>
 
-    <link rel="icon" href="/icon.png" type="image/png">
-    <link rel="icon" href="/icon.svg" type="image/svg+xml">
-    <link rel="apple-touch-icon" href="/icon.png">
+  <%= yield :head %>
 
-    <%# Includes all stylesheet files in app/assets/stylesheets %>
-    <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
-    <%= javascript_importmap_tags %>
-  </head>
+  <link rel="icon" href="/icon.png" type="image/png">
+  <link rel="icon" href="/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/icon.png">
 
-  <body>
+  <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+  <%= javascript_importmap_tags %>
+</head>
+
+<body>
+<!-- Navbar Bootstrap -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Eventbrite</a>
+    
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain" aria-controls="navbarMain" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    
+    <div class="collapse navbar-collapse" id="navbarMain">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <!-- Accueil bouton avec un style uniforme -->
+        <li class="nav-item">
+          <a class="btn btn-light nav-link active" href="<%= root_path %>">Accueil</a>
+        </li>
+        
+        <!-- Boutons pour création d'événements ou connexion selon l'état de l'utilisateur -->
+        <li class="nav-item">
+          <% if user_signed_in? %>
+            <%= link_to 'Créer un événement', new_event_path, class: 'btn btn-primary' %>
+          <% else %>
+            <%= link_to 'Se connecter', new_user_session_path, class: 'btn btn-secondary' %>
+          <% end %>
+        </li>
+        
+        <% if user_signed_in? %>
+        <li class="nav-item">
+          <%= link_to 'Mon profil', user_path(current_user), class: "btn btn-info" %>
+        </li>
+        <li class="nav-item">
+          <%= link_to 'Se déconnecter', destroy_user_session_path, method: :delete, class: "btn btn-danger" %>
+        </li>
+        <% else %>
+        <li class="nav-item">
+          <%= link_to 'S\'inscrire', new_user_registration_path, class: "btn btn-success" %>
+        </li>
+        <li class="nav-item">
+          <%= link_to 'Se connecter', new_user_session_path, class: "btn btn-secondary" %>
+        </li>
+        <% end %>
+      </ul>
+
+      <!-- Zone de recherche -->
+      <form class="d-flex" role="search" style="gap: 10px;">
+        <input class="form-control me-2" type="search" placeholder="Rechercher un événement" aria-label="Search Events">
+        <input class="form-control me-2" type="search" placeholder="Rechercher une ville" aria-label="Search City">
+        <button class="btn btn-outline-light" type="submit">Rechercher</button>
+      </form>
+    </div>
+  </div>
+</nav>
+
+
+  <!-- Le contenu de la page -->
+  <div class="container" style="margin-top: 80px;">
     <%= yield %>
-  </body>
+  </div>
+
+  <!-- Script Bootstrap (pour les actions de la navbar) -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  
+</body>
+
 </html>

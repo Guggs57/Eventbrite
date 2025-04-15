@@ -1,0 +1,31 @@
+<h1><%= @event.title %></h1>
+
+<p><strong>Description:</strong> <%= @event.description %></p>
+<p><strong>Lieu:</strong> <%= @event.location %></p>
+
+<% if @event.date.present? %>
+  <p><strong>Date de début:</strong> <%= @event.date.strftime("%d/%m/%Y %H:%M") %></p>
+<% else %>
+  <p><strong>Date de début:</strong> Non définie</p>
+<% end %>
+
+<% if @event.price.present? %>
+  <p><strong>Prix:</strong> <%= @event.price %> €</p>
+<% else %>
+  <p><strong>Prix:</strong> Non spécifié</p>
+<% end %>
+
+<p><strong>Créateur:</strong> <%= @event.creator.email %></p>
+
+<% if @event.attendees.any? %>
+  <p><strong>Nombre d'inscrits:</strong> <%= @event.attendees.count %></p>
+<% else %>
+  <p><strong>Nombre d'inscrits:</strong> Aucun inscrit pour cet événement.</p>
+<% end %>
+
+<% if @event.creator == current_user %>
+  <!-- Affichage du bouton supprimer uniquement si l'utilisateur est le créateur -->
+  <%= link_to 'Supprimer cet événement', event_path(@event), method: :delete, data: { confirm: "Êtes-vous sûr de vouloir supprimer cet événement ?" }, class: "btn btn-danger" %>
+<% end %>
+
+<%= link_to 'Retour à la liste des événements', events_path, class: 'btn btn-secondary' %>
