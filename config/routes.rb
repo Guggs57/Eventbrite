@@ -21,6 +21,16 @@ Rails.application.routes.draw do
     resources :users, only: [:show]
   end
 
+  # Route stripe
+  scope '/checkout' do
+    post 'create', to: 'checkouts#create', as: 'checkout_create'
+    get 'success', to: 'checkouts#success', as: 'checkout_success'
+    get 'cancel', to: 'checkouts#cancel', as: 'checkout_cancel'
+  end
+
+  resources :events
+  
+
   # Route d'accueil
   root "events#index"
 end

@@ -63,3 +63,6 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
+
+gem "stripe"
+gem 'dotenv-rails', groups: [:development, :test]

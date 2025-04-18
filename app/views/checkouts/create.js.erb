@@ -1,0 +1,7 @@
+var stripe = Stripe('<%= Rails.application.credentials.stripe[:public_key] %>');
+stripe.redirectToCheckout({ sessionId: '<%= @session.id %>' })
+  .then(function (result) {
+    if (result.error) {
+      alert(result.error.message);  // Affiche l'erreur si quelque chose ne va pas
+    }
+  });

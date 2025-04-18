@@ -28,4 +28,7 @@
   <%= link_to 'Supprimer cet événement', event_path(@event), method: :delete, data: { confirm: "Êtes-vous sûr de vouloir supprimer cet événement ?" }, class: "btn btn-danger" %>
 <% end %>
 
+<%= button_to 'Payer avec Stripe', checkout_create_path(event_id: @event.id, total: @event.price), method: :post, class: 'btn btn-success' %>
+
+
 <%= link_to 'Retour à la liste des événements', events_path, class: 'btn btn-secondary' %>
